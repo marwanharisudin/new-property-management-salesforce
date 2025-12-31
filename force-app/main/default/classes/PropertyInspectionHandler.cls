@@ -1,12 +1,9 @@
 public with sharing class PropertyInspectionHandler {
-
-    // === TEST HOOK ===
+    
     @TestVisible
     static Boolean forceExceptionForTest = false;
 
-    /* =========================================================
-       1. Calculate Average Inspection Rating
-       ========================================================= */
+    /* Calculate Average Inspection Rating */
     public static Decimal calculateAverageRating(Id accountId) {
         if (accountId == null) {
             throw new IllegalArgumentException('Account Id cannot be null');
@@ -32,9 +29,7 @@ public with sharing class PropertyInspectionHandler {
         }
     }
 
-    /* =========================================================
-       2. Get Overdue Inspections
-       ========================================================= */
+    /* Get Overdue Inspections */
     public static List<Property_Inspection__c> getOverdueInspections() {
         try {
             if (forceExceptionForTest) {
@@ -54,9 +49,7 @@ public with sharing class PropertyInspectionHandler {
         }
     }
 
-    /* =========================================================
-       3. Update Account with Latest Inspection
-       ========================================================= */
+    /* Update Account with Latest Inspection */
     public static void updateAccountWithLatestInspection(Set<Id> accountIds) {
         if (accountIds == null || accountIds.isEmpty()) {
             return;
