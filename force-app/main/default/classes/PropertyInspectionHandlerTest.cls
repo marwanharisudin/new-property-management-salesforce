@@ -1,9 +1,7 @@
 @IsTest
 private class PropertyInspectionHandlerTest {
 
-    /* =========================================================
-       TEST DATA FACTORY
-       ========================================================= */
+    /* TEST DATA FACTORY */
     private static Account createAccount() {
         Account acc = new Account(Name = 'Test Property');
         insert acc;
@@ -28,9 +26,7 @@ private class PropertyInspectionHandlerTest {
         return pi;
     }
 
-    /* =========================================================
-       1. Ada Inspection (Average Rating)
-       ========================================================= */
+    /* Inspection (Average Rating) */
     @IsTest
     static void testCalculateAverageRating_WithData() {
         Account acc = createAccount();
@@ -44,9 +40,7 @@ private class PropertyInspectionHandlerTest {
         System.assertEquals(4.5, avg);
     }
 
-    /* =========================================================
-       2. Tidak Ada Inspection
-       ========================================================= */
+    /* No Inspection */
     @IsTest
     static void testCalculateAverageRating_NoData() {
         Account acc = createAccount();
@@ -58,9 +52,7 @@ private class PropertyInspectionHandlerTest {
         System.assertEquals(null, avg);
     }
 
-    /* =========================================================
-       3. Overdue Logic
-       ========================================================= */
+    /* Overdue Logic */
     @IsTest
     static void testGetOverdueInspections() {
         Account acc = createAccount();
@@ -74,9 +66,7 @@ private class PropertyInspectionHandlerTest {
         System.assertEquals(1, overdue.size());
     }
 
-    /* =========================================================
-       4. Update Account Description
-       ========================================================= */
+    /* Update Account Description */
     @IsTest
     static void testUpdateAccountWithLatestInspection() {
         Account acc = createAccount();
@@ -95,9 +85,7 @@ private class PropertyInspectionHandlerTest {
         System.assert(updatedAcc.Description.contains('Latest Inspection Summary'));
     }
 
-    /* =========================================================
-       5. Early Return Coverage
-       ========================================================= */
+    /* Early Return Coverage */
     @IsTest
     static void testUpdateAccountWithEmptySet() {
         Test.startTest();
@@ -109,29 +97,24 @@ private class PropertyInspectionHandlerTest {
         System.assert(true);
     }
 
-    /* =========================================================
-       6. Catch Block Coverage (ALL)
-       ========================================================= */
+    /* Catch Block Coverage (ALL) */
     @IsTest
     static void testCatchBlocksCoverage() {
         Account acc = createAccount();
         PropertyInspectionHandler.forceExceptionForTest = true;
-
-        // calculateAverageRating catch
+        
         try {
             PropertyInspectionHandler.calculateAverageRating(acc.Id);
         } catch (Exception e) {
             System.assert(true);
         }
 
-        // getOverdueInspections catch
         try {
             PropertyInspectionHandler.getOverdueInspections();
         } catch (Exception e) {
             System.assert(true);
         }
 
-        // updateAccountWithLatestInspection catch
         try {
             PropertyInspectionHandler.updateAccountWithLatestInspection(
                 new Set<Id>{ acc.Id }
